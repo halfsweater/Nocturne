@@ -45,29 +45,33 @@ object NativeEngine {
     var sampleRate: Int = 0
         private set
 
-    init {
-        System.loadLibrary("nocturne")
-    }
+    /** False if the native library could not be loaded (unsupported ABI, tests on the JVM). */
+    val loaded: Boolean = runCatching { System.loadLibrary("nocturne") }.isSuccess
+
+    @Volatile
+    private var ready = false
 
     /** Opens the audio stream and creates the synth pool. Returns false if audio is unavailable. */
     @Synchronized
     fun init(): Boolean {
+        if (!loaded) return false
         if (sampleRate > 0) return true
         sampleRate = nativeInit()
-        return sampleRate > 0
+        ready = sampleRate > 0
+        return ready
     }
 
-    fun start() = nativeStart()
-    fun stop() = nativeStop()
-    fun noteOn(key: Int, velocity: Int) = nativeNoteOn(key, velocity)
-    fun noteOff(key: Int) = nativeNoteOff(key)
-    fun sustain(down: Boolean) = nativeSustain(down)
-    fun allNotesOff() = nativeAllNotesOff()
+    fun start() { if (ready) nativeStart() }
+    fun stop() { if (ready) nativeStop() }
+    fun noteOn(key: Int, velocity: Int) { if (ready) nativeNoteOn(key, velocity) }
+    fun noteOff(key: Int) { if (ready) nativeNoteOff(key) }
+    fun sustain(down: Boolean) { if (ready) nativeSustain(down) }
+    fun allNotesOff() { if (ready) nativeAllNotesOff() }
 
     fun setParams(
         volume: Float, brightness: Float, reverb: Float, sustain: Float,
         concertHall: Boolean, studio: Boolean, soft: Boolean,
-    ) = nativeSetParams(volume, brightness, reverb, sustain, concertHall, studio, soft)
+    ) { if (ready) nativeSetParams(volume, brightness, reverb, sustain, concertHall, studio, soft) }
 
     /**
      * @param files distinct SF2 paths
@@ -75,6 +79,7 @@ object NativeEngine {
      * @return null on success, otherwise an error message
      */
     fun loadInstrument(files: List<String>, layers: List<NativeLayer>, voicing: Map<String, Float>): String? {
+        if (!ready) return "Audio engine unavailable"
         val ints = IntArray(layers.size * 5)
         val floats = FloatArray(layers.size * 2)
         layers.forEachIndexed { i, l ->
@@ -91,13 +96,13 @@ object NativeEngine {
     }
 
     fun transcodeAsset(assets: AssetManager, assetPath: String, outPath: String, listener: ProgressListener?): String? =
-        nativeTranscode(assets, assetPath, null, outPath, listener)
+        if (loaded) nativeTranscode(assets, assetPath, null, outPath, listener) else "Audio engine unavailable"
 
     fun transcodeFile(inPath: String, outPath: String, listener: ProgressListener?): String? =
-        nativeTranscode(null, null, inPath, outPath, listener)
+        if (loaded) nativeTranscode(null, null, inPath, outPath, listener) else "Audio engine unavailable"
 
     fun stats(): Stats {
-        val s = nativeStats()
+        val s = if (loaded) nativeStats() else FloatArray(8)
         return Stats(s[0].toInt(), s[1].toInt(), s[2].toInt(), s[3].toInt(), s[4], s[5].toInt(), s[6], s[7] > 0f)
     }
 

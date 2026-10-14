@@ -189,6 +189,7 @@ fun PedalButton(active: Boolean, onChange: (Boolean) -> Unit, modifier: Modifier
     }
 }
 
+@OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 @Composable
 fun LabeledSlider(
     label: String,
@@ -203,16 +204,30 @@ fun LabeledSlider(
             Overline(label)
             Text(valueText, style = MaterialTheme.typography.labelMedium, color = Nocturne.Silver)
         }
+        val colors = SliderDefaults.colors(
+            thumbColor = Nocturne.Ivory,
+            activeTrackColor = Nocturne.Silver,
+            inactiveTrackColor = Nocturne.Hairline,
+        )
         Slider(
             value = value,
             onValueChange = onValueChange,
             valueRange = range,
             modifier = Modifier.height(32.dp),
-            colors = SliderDefaults.colors(
-                thumbColor = Nocturne.Ivory,
-                activeTrackColor = Nocturne.Silver,
-                inactiveTrackColor = Nocturne.Hairline,
-            ),
+            colors = colors,
+            thumb = {
+                Box(Modifier.size(18.dp).clip(CircleShape).background(Nocturne.Ivory)
+                    .border(3.dp, Nocturne.Charcoal.copy(alpha = 0.35f), CircleShape))
+            },
+            track = { state ->
+                SliderDefaults.Track(
+                    sliderState = state,
+                    modifier = Modifier.height(3.dp),
+                    colors = colors,
+                    drawStopIndicator = null,
+                    thumbTrackGapSize = 0.dp,
+                )
+            },
         )
     }
 }

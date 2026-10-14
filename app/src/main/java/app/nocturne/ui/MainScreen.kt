@@ -34,7 +34,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.text.style.Hyphens
+import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -216,7 +219,9 @@ private fun Header(
                 Spacer(Modifier.height(if (landscape) 2.dp else 6.dp))
                 Text(
                     name,
-                    style = if (landscape) MaterialTheme.typography.headlineSmall else MaterialTheme.typography.displaySmall,
+                    style = (if (landscape) MaterialTheme.typography.headlineSmall
+                    else MaterialTheme.typography.displaySmall.copy(fontSize = if (name.length > 16) 26.sp else 30.sp))
+                        .copy(lineBreak = LineBreak.Heading, hyphens = Hyphens.None),
                     color = Nocturne.Ivory,
                     textAlign = TextAlign.Center,
                     maxLines = 2,
@@ -308,13 +313,13 @@ private fun SoundPanel(
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(18.dp)) {
             val keys = if (landscape) keyboard.visibleWhiteLandscape else keyboard.visibleWhitePortrait
             LabeledSlider(
-                "Visible keys", keys.toFloat(),
+                "Visible white keys", keys.toFloat(),
                 { v ->
                     vm.updateKeyboard {
                         if (landscape) it.copy(visibleWhiteLandscape = v.roundToInt()) else it.copy(visibleWhitePortrait = v.roundToInt())
                     }
                 },
-                Modifier.weight(1f), range = 7f..28f, valueText = "$keys white keys",
+                Modifier.weight(1f), range = 7f..28f, valueText = "$keys",
             )
             if (keyboard.touchResponse == app.nocturne.data.TouchResponse.Fixed) {
                 LabeledSlider("Fixed velocity", keyboard.fixedVelocity.toFloat(),
