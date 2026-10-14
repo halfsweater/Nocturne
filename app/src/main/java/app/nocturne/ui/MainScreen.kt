@@ -118,12 +118,16 @@ fun MainScreen(vm: PianoViewModel, onOpenLibrary: () -> Unit) {
             }
             IconCircleButton(NIcons.Plus, "Octave up", { seek(firstWhite + 7f, true) }, size = 38.dp)
             SmallSpacer(12.dp)
-            KeyboardMiniMap(
-                firstWhite = firstWhite,
-                visibleWhite = visible,
-                onSeek = ::seek,
-                modifier = Modifier.weight(1f).height(28.dp),
-            )
+            if (landscape) {
+                KeyboardMiniMap(
+                    firstWhite = firstWhite,
+                    visibleWhite = visible,
+                    onSeek = ::seek,
+                    modifier = Modifier.weight(1f).height(28.dp),
+                )
+            } else {
+                Spacer(Modifier.weight(1f))
+            }
             SmallSpacer(12.dp)
             if (landscape || !panelOpen) {
                 LabeledSlider(
@@ -131,11 +135,20 @@ fun MainScreen(vm: PianoViewModel, onOpenLibrary: () -> Unit) {
                     value = sound.volume,
                     onValueChange = { v -> vm.updateSound { it.copy(volume = v) } },
                     valueText = "${(sound.volume * 100).roundToInt()}",
-                    modifier = Modifier.width(if (landscape) 150.dp else 104.dp),
+                    modifier = Modifier.width(if (landscape) 150.dp else 120.dp),
                 )
                 SmallSpacer(12.dp)
             }
             PedalButton(sustain, vm::setSustain, Modifier.size(width = 78.dp, height = if (landscape) 46.dp else 52.dp))
+        }
+        if (!landscape) {
+            // Portrait is narrow: the 88-key overview gets its own full-width row.
+            KeyboardMiniMap(
+                firstWhite = firstWhite,
+                visibleWhite = visible,
+                onSeek = ::seek,
+                modifier = Modifier.fillMaxWidth().padding(start = 12.dp, end = 12.dp, bottom = 8.dp).height(26.dp),
+            )
         }
 
         // ---------------------------------------------------------- keyboard

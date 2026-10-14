@@ -3,6 +3,7 @@ package app.nocturne.ui
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import app.nocturne.BuildConfig
 import app.nocturne.NocturneApp
 import app.nocturne.audio.NativeEngine
 import app.nocturne.audio.NativeLayer
@@ -59,6 +60,14 @@ class PianoViewModel(app: Application) : AndroidViewModel(app) {
             _audioReady.value = ok
             if (!ok) return@launch
             pushSound(settings.sound.value)
+            if (BuildConfig.DEBUG) launch {
+                // Debug builds log engine health while sound is playing (used for device testing).
+                while (true) {
+                    val st = NativeEngine.stats()
+                    if (st.activeVoices > 0) android.util.Log.i("NocturneStats", st.toString())
+                    delay(500)
+                }
+            }
             val start = _current.value.instrument.takeIf { packs.isAvailable(it) } ?: catalog.instruments.first()
             select(start.id)
             loadJob?.join()
