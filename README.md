@@ -101,5 +101,16 @@ Measured on the host build of the exact engine code (`tools/hosttest/evaluate.py
 - every pair of instruments differs by ≥3.4 dB mean spectral difference (median 10.7 dB)
 - all 1,345 sample loops seamless after decoding (wrap curvature within the waveform's own 99.9th percentile)
 
-**Not yet verified on a physical Android device** — see the delivery notes. Latency, multitouch
-feel and CPU headroom must be confirmed on real hardware.
+Android emulator (API 31 x86_64, software CPU emulation — no hardware acceleration available in
+the build environment):
+
+- app installs and starts; AAudio output stream opens
+- all 16 bundled instruments unpack, load and sound when a key is pressed (engine voice counts
+  and output peaks read back from the running app)
+- three simultaneous fingers injected through the kernel touchscreen device → 3 notes sounding
+  together (6 stereo voices), all released when the fingers lift
+- instrument switching via next/previous; layered instruments sound all their layers
+
+**Not yet verified on a physical Android device.** The emulator cannot judge latency or sound
+quality (it emulates the CPU in software and under-runs constantly), so real-hardware latency,
+touch feel and CPU headroom still need to be confirmed on a phone.
