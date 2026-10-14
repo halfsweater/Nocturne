@@ -147,6 +147,8 @@ fun MainScreen(vm: PianoViewModel, onOpenLibrary: () -> Unit) {
                         override fun onNoteOff(note: Int) = NativeEngine.noteOff(note)
                     }
                     velocityTransform = vm::shapeVelocity
+                    visibleWhite = visible
+                    setFirstWhite(firstWhite.coerceIn(0f, maxFirst), animate = false)
                     onWindowChanged = { firstWhite = it }
                     keyboardView = this
                 }

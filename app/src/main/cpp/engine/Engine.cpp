@@ -28,7 +28,7 @@ bool Engine::init(int sampleRate) {
         s.settings = new_fluid_settings();
         if (!s.settings) return false;
         fluid_settings_setnum(s.settings, "synth.sample-rate", double(sampleRate));
-        fluid_settings_setint(s.settings, "synth.polyphony", 256);
+        fluid_settings_setint(s.settings, "synth.polyphony", 192);   // headroom for mid-range phones; FluidSynth steals released voices first
         fluid_settings_setint(s.settings, "synth.midi-channels", 16);
         fluid_settings_setint(s.settings, "synth.threadsafe-api", 0);
         fluid_settings_setint(s.settings, "synth.dynamic-sample-loading", 1);
