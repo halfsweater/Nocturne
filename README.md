@@ -15,6 +15,11 @@ instruments that play completely offline, and a low-latency native audio engine.
   Soft piano, all adjustable while you play.
 - No account, no ads, no analytics. Preferences and favourites are stored on the device.
 
+## Install
+
+Download `releases/Nocturne-1.0.0.apk` (49.5 MB, Android 8.0+, arm64 / armv7 / x86_64) and open it on the phone;
+allow "install unknown apps" for your browser or file manager when asked. SHA-256 is in the `.sha256` file next to it.
+
 ## Instruments
 
 | Instrument | Built from | Licence |
