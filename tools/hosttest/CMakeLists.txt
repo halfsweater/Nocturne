@@ -1,0 +1,12 @@
+cmake_minimum_required(VERSION 3.16)
+project(nocturne_host CXX C)
+set(CMAKE_CXX_STANDARD 17)
+set(ENGINE ${CMAKE_CURRENT_SOURCE_DIR}/../../app/src/main/cpp)
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(FS REQUIRED fluidsynth)
+add_library(nocturne_host SHARED capi.cpp ${ENGINE}/engine/Engine.cpp ${ENGINE}/engine/Sf3Transcoder.cpp
+            ${ENGINE}/third_party/stb_vorbis_impl.c)
+target_include_directories(nocturne_host PRIVATE ${FS_INCLUDE_DIRS})
+target_link_directories(nocturne_host PRIVATE ${FS_LIBRARY_DIRS})
+target_link_libraries(nocturne_host PRIVATE ${FS_LIBRARIES})
+target_compile_options(nocturne_host PRIVATE -O2 -Wall -Wextra -Wno-unused-parameter)

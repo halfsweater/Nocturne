@@ -1,0 +1,73 @@
+NOCTURNE — SOUNDS, SOFTWARE AND LICENCES
+
+Instrument names such as "Yamaha-inspired", "Steinway-inspired", "Bösendorfer-inspired" and "Fazioli-inspired" describe a sound character only. Nocturne is not affiliated with, endorsed by or partnered with any piano manufacturer. All trademarks belong to their owners.
+
+All sample libraries below were converted by Nocturne: notes were trimmed, loudness-normalised, given loop points for long sustain, re-mapped across the keyboard and encoded as compressed SoundFont 3 files. Sound character is further shaped by Nocturne's engine (filters, EQ, reverb).
+
+────────────────────────────────────────
+SAMPLE LIBRARIES (bundled)
+
+Salamander Grand Piano V3 — Yamaha C5
+  Author: Alexander Holm
+  Licence: Creative Commons Attribution 3.0 (https://creativecommons.org/licenses/by/3.0/)
+  Source: https://freepats.zenvoid.org/Piano/acoustic-grand-piano.html
+  Used for: Yamaha-Inspired Grand, Bright Grand, Soft Piano, Soft Ambient Piano
+
+Versilian Community Sample Library (VCSL) — Steinway Model B, Kawai grand, French harpsichord, pipe organ
+  Author: Versilian Studios LLC and contributors (organ sampled by Simon Dalzell of Ivy Audio)
+  Licence: Creative Commons CC0 1.0 (public domain dedication)
+  Source: https://github.com/sgossner/VCSL
+  Used for: Steinway-Inspired Concert Grand, Cinematic Piano, Bösendorfer-Inspired Grand, Harpsichord, Church Organ
+
+Splendid Grand Piano — Steinway Model D (AKAI sample library)
+  Licence: Public domain
+  Source: https://github.com/sfzinstruments/SplendidGrandPiano
+  Used for: Fazioli-Inspired Concert Grand
+
+YDP Grand Piano — Yamaha Disklavier Pro
+  Samples recorded by Zenph Studios for the One Laptop per Child project; SoundFont by Roberto (FreePats)
+  Licence: Creative Commons Attribution 3.0 (https://creativecommons.org/licenses/by/3.0/)
+  Source: https://freepats.zenvoid.org/Piano/acoustic-grand-piano.html
+  Used for: Warm Grand
+
+Upright Piano KW — Kawai upright
+  Recorded by Gonzalo and Roberto (FreePats)
+  Licence: Creative Commons CC0 1.0
+  Source: https://freepats.zenvoid.org/Piano/acoustic-grand-piano.html
+  Used for: Upright Piano
+
+Greg Sullivan E-Pianos — Wurlitzer EP200, Yamaha CP80
+  Author: Greg Sullivan (http://www.sullivang.net/); SFZ mapping by kinwie
+  Licence: Creative Commons Attribution 3.0 (https://creativecommons.org/licenses/by/3.0/)
+  Source: https://github.com/sfzinstruments/GregSullivan.E-Pianos
+  Used for: Wurlitzer-Style Electric Piano, Digital Stage Piano
+
+FM Piano 1 — DX7-style electric piano rendered from the Hexter synthesizer
+  Author: FreePats project
+  Licence: Creative Commons CC0 1.0
+  Source: https://freepats.zenvoid.org/ElectricPiano/synthesized-piano.html
+  Used for: Electric Piano
+
+GeneralUser GS 2.0 — Tine electric piano, warm pad, slow strings
+  Author: S. Christian Collins (https://www.schristiancollins.com)
+  Licence: GeneralUser GS License v2.0 — "You may use GeneralUser GS without restriction for your own music creation, private or commercial ... Please feel free to use it in your software projects, and to modify the SoundFont bank or its packaging to suit your needs."
+  Used for: Rhodes-Style Electric Piano, pad layer of Soft Ambient Piano, string layer of Cinematic Piano
+
+────────────────────────────────────────
+OPTIONAL DOWNLOAD
+
+MuseScore General 0.2 (downloaded on request from ftp.osuosl.org)
+  Copyright (c) 2018-2020 S. Christian Collins; based on FluidR3 (c) 2000-2002, 2008 Frank Wen, FluidR3Mono (c) 2014-2017 Michael Cowgill.
+  Licence: MIT. Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files, to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
+
+────────────────────────────────────────
+SOFTWARE
+
+FluidSynth 2.6.1 — SoundFont synthesizer
+  Copyright (C) 2003-2025 Peter Hanappe, Tom Moebert and others
+  Licence: GNU Lesser General Public License v2.1 or later. Nocturne links FluidSynth as a separate shared library (libfluidsynth.so) which you may replace with a modified version. Source code: https://github.com/FluidSynth/fluidsynth (tag v2.6.1) and the third_party/fluidsynth directory of Nocturne's source repository.
+
+gcem — Copyright (C) 2016-2024 Keith O'Hara. Apache License 2.0.
+Oboe — Copyright 2016 The Android Open Source Project. Apache License 2.0.
+stb_vorbis — Sean Barrett. Public domain.
+Jetpack Compose and AndroidX libraries — The Android Open Source Project. Apache License 2.0.

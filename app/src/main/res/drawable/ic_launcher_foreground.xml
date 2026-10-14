@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Crescent moon resting over three piano keys. 108dp adaptive canvas, art inside the 72dp safe zone. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp" android:viewportWidth="108" android:viewportHeight="108">
+    <!-- moon -->
+    <path android:fillColor="#F4EFE4"
+        android:pathData="M60,28 A16,16 0 1,0 74,52 A13,13 0 1,1 60,28 Z" />
+    <!-- white keys -->
+    <path android:fillColor="#F4EFE4" android:pathData="M36,56 h11 v26 a2,2 0 0 1 -2,2 h-7 a2,2 0 0 1 -2,-2 Z" />
+    <path android:fillColor="#F4EFE4" android:pathData="M49,56 h11 v26 a2,2 0 0 1 -2,2 h-7 a2,2 0 0 1 -2,-2 Z" />
+    <path android:fillColor="#F4EFE4" android:pathData="M62,56 h11 v26 a2,2 0 0 1 -2,2 h-7 a2,2 0 0 1 -2,-2 Z" />
+    <!-- black keys -->
+    <path android:fillColor="#121316" android:pathData="M44,56 h7 v15 a1.5,1.5 0 0 1 -1.5,1.5 h-4 a1.5,1.5 0 0 1 -1.5,-1.5 Z" />
+    <path android:fillColor="#121316" android:pathData="M57,56 h7 v15 a1.5,1.5 0 0 1 -1.5,1.5 h-4 a1.5,1.5 0 0 1 -1.5,-1.5 Z" />
+    <!-- silver hairline -->
+    <path android:fillColor="#B9BDC4" android:pathData="M34,54 h41 v1.2 h-41 Z" />
+</vector>

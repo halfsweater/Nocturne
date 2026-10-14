@@ -1,0 +1,278 @@
+{
+  "version": 1,
+  "packs": [
+    {
+      "id": "yamaha",
+      "title": "Yamaha C5 Grand",
+      "asset": "soundpacks/yamaha.sf3",
+      "source": "Salamander Grand Piano V3 by Alexander Holm",
+      "license": "CC BY 3.0"
+    },
+    {
+      "id": "steinway",
+      "title": "Steinway Model B",
+      "asset": "soundpacks/steinway.sf3",
+      "source": "Versilian Community Sample Library (VCSL), Versilian Studios",
+      "license": "CC0 1.0"
+    },
+    {
+      "id": "kawai",
+      "title": "Kawai Grand",
+      "asset": "soundpacks/kawai.sf3",
+      "source": "Versilian Community Sample Library (VCSL), Versilian Studios",
+      "license": "CC0 1.0"
+    },
+    {
+      "id": "splendid",
+      "title": "Steinway Model D (Splendid Grand)",
+      "asset": "soundpacks/splendid.sf3",
+      "source": "Splendid Grand Piano, AKAI sample library",
+      "license": "Public domain"
+    },
+    {
+      "id": "ydp",
+      "title": "Yamaha Disklavier Pro",
+      "asset": "soundpacks/ydp.sf3",
+      "source": "YDP Grand Piano by FreePats (Zenph Studios samples for OLPC)",
+      "license": "CC BY 3.0"
+    },
+    {
+      "id": "upright",
+      "title": "Kawai Upright",
+      "asset": "soundpacks/upright.sf3",
+      "source": "Upright Piano KW by FreePats (Gonzalo & Roberto)",
+      "license": "CC0 1.0"
+    },
+    {
+      "id": "keys",
+      "title": "Vintage Keys & Organ",
+      "asset": "soundpacks/keys.sf3",
+      "source": "Greg Sullivan E-Pianos (CC BY 3.0); FreePats FM Piano 1 (CC0); GeneralUser GS 2.0 by S. Christian Collins; VCSL pipe organ and harpsichord (CC0)",
+      "license": "Mixed permissive (see licences screen)"
+    },
+    {
+      "id": "musescore",
+      "title": "MuseScore General Keys",
+      "url": "https://ftp.osuosl.org/pub/musescore/soundfont/MuseScore_General/MuseScore_General.sf3",
+      "sha256": "5b85b6c2c61d10b2b91cddd41efcce7b25cd31c8271d511c73afafbef20b6fa3",
+      "downloadBytes": 39900972,
+      "source": "MuseScore_General 0.2 by S. Christian Collins, based on FluidR3 by Frank Wen",
+      "license": "MIT"
+    }
+  ],
+  "instruments": [
+    {
+      "id": "yamaha_grand",
+      "name": "Yamaha-Inspired Grand",
+      "category": "acoustic",
+      "character": "Balanced, articulate studio grand",
+      "basis": "Yamaha C5, 4 velocity layers",
+      "layers": [{ "pack": "yamaha", "program": 0 }],
+      "voicing": { "reverbSend": 0.22, "roomSize": 0.55, "damping": 0.35, "reverbLevel": 0.7, "outputGainDb": 3.5 }
+    },
+    {
+      "id": "steinway_concert",
+      "name": "Steinway-Inspired Concert Grand",
+      "category": "acoustic",
+      "character": "Powerful, singing concert tone",
+      "basis": "Steinway Model B, 3 velocity layers",
+      "layers": [{ "pack": "steinway", "program": 0 }],
+      "voicing": { "reverbSend": 0.3, "roomSize": 0.78, "damping": 0.25, "reverbLevel": 0.8, "reverbWidth": 1.0,
+                   "lowShelfDb": 1.0, "presenceDb": 0.5, "highShelfDb": 0.5, "stereoWidth": 1.1, "decayTimecents": 200, "outputGainDb": -3.5 }
+    },
+    {
+      "id": "bosendorfer_grand",
+      "name": "Bösendorfer-Inspired Grand",
+      "category": "acoustic",
+      "character": "Dark, velvety, deep resonant bass",
+      "basis": "Kawai grand, 4 velocity layers, dark voicing",
+      "layers": [{ "pack": "kawai", "program": 0 }],
+      "voicing": { "filterCents": -1400, "lowShelfDb": 3.0, "presenceDb": -1.5, "highShelfDb": -3.0, "decayTimecents": 600,
+                   "releaseTimecents": 200, "reverbSend": 0.27, "roomSize": 0.7, "damping": 0.5, "reverbLevel": 0.75,
+                   "stereoWidth": 1.05, "outputGainDb": 1.0 }
+    },
+    {
+      "id": "fazioli_grand",
+      "name": "Fazioli-Inspired Concert Grand",
+      "category": "acoustic",
+      "character": "Crystalline treble, long luminous sustain",
+      "basis": "Steinway Model D, 4 velocity layers, brilliant voicing",
+      "layers": [{ "pack": "splendid", "program": 0 }],
+      "voicing": { "lowShelfDb": -0.5, "presenceDb": 2.0, "highShelfDb": 3.0, "decayTimecents": 350, "reverbSend": 0.28,
+                   "roomSize": 0.72, "damping": 0.2, "reverbLevel": 0.78, "reverbWidth": 1.0, "stereoWidth": 1.15, "outputGainDb": -1.5 }
+    },
+    {
+      "id": "warm_grand",
+      "name": "Warm Grand",
+      "category": "acoustic",
+      "character": "Round, mellow and intimate",
+      "basis": "Yamaha Disklavier Pro, mellow-shifted samples",
+      "layers": [{ "pack": "ydp", "program": 0 }],
+      "voicing": { "filterCents": -500, "lowShelfDb": 1.5, "presenceDb": -1.5, "highShelfDb": -3.0, "reverbSend": 0.24,
+                   "roomSize": 0.6, "damping": 0.55, "reverbLevel": 0.72, "outputGainDb": 6.0 }
+    },
+    {
+      "id": "bright_grand",
+      "name": "Bright Grand",
+      "category": "acoustic",
+      "character": "Clear and cutting, sits on top of a mix",
+      "basis": "Yamaha C5, brightness-shifted samples",
+      "layers": [{ "pack": "yamaha", "program": 1 }],
+      "voicing": { "lowShelfDb": -1.0, "presenceDb": 2.5, "highShelfDb": 4.0, "reverbSend": 0.18, "roomSize": 0.45,
+                   "damping": 0.3, "reverbLevel": 0.65, "outputGainDb": 4.5 }
+    },
+    {
+      "id": "soft_piano",
+      "name": "Soft Piano",
+      "category": "acoustic",
+      "character": "Hushed felt-like tone for late-night playing",
+      "basis": "Yamaha C5 pianissimo layers, felt voicing",
+      "layers": [{ "pack": "yamaha", "program": 2, "velocityScale": 0.85 }],
+      "voicing": { "filterCents": -1500, "lowShelfDb": 1.0, "presenceDb": -3.0, "highShelfDb": -4.0, "releaseTimecents": 300,
+                   "reverbSend": 0.3, "roomSize": 0.6, "damping": 0.6, "reverbLevel": 0.72, "outputGainDb": 6.5 }
+    },
+    {
+      "id": "upright_piano",
+      "name": "Upright Piano",
+      "category": "acoustic",
+      "character": "Honest living-room upright",
+      "basis": "Kawai upright, 2 velocity layers",
+      "layers": [{ "pack": "upright", "program": 0 }],
+      "voicing": { "lowShelfDb": -1.0, "presenceDb": 1.0, "reverbSend": 0.16, "roomSize": 0.35, "damping": 0.5,
+                   "reverbLevel": 0.6, "stereoWidth": 0.85, "outputGainDb": 5.0 }
+    },
+    {
+      "id": "electric_piano",
+      "name": "Electric Piano",
+      "category": "electric",
+      "character": "Glassy 80s FM electric piano",
+      "basis": "DX7-style \"E.Piano 1\", 3 velocity layers",
+      "layers": [{ "pack": "keys", "program": 0 }],
+      "voicing": { "chorusSend": 0.35, "chorusDepthMs": 3.0, "chorusSpeedHz": 0.45, "chorusLevel": 1.5, "reverbSend": 0.2,
+                   "roomSize": 0.5, "damping": 0.4, "reverbLevel": 0.7, "presenceDb": 1.0, "stereoWidth": 1.2, "outputGainDb": 4.5 }
+    },
+    {
+      "id": "rhodes",
+      "name": "Rhodes-Style Electric Piano",
+      "category": "electric",
+      "character": "Warm tine bell with soft bark",
+      "basis": "Tine electric piano, 3 velocity layers",
+      "layers": [{ "pack": "keys", "program": 1 }],
+      "voicing": { "chorusSend": 0.18, "chorusDepthMs": 4.0, "chorusSpeedHz": 0.3, "chorusLevel": 1.2, "lowShelfDb": 1.5,
+                   "highShelfDb": -1.0, "reverbSend": 0.2, "roomSize": 0.5, "damping": 0.45, "reverbLevel": 0.7, "outputGainDb": 3.5 }
+    },
+    {
+      "id": "wurlitzer",
+      "name": "Wurlitzer-Style Electric Piano",
+      "category": "electric",
+      "character": "Reedy, nasal growl when pushed",
+      "basis": "Wurlitzer EP200, 4 velocity layers",
+      "layers": [{ "pack": "keys", "program": 2 }],
+      "voicing": { "presenceDb": 1.5, "highShelfDb": -2.0, "reverbSend": 0.15, "roomSize": 0.4, "damping": 0.5,
+                   "reverbLevel": 0.65, "stereoWidth": 0.9, "outputGainDb": 10.5 }
+    },
+    {
+      "id": "stage_piano",
+      "name": "Digital Stage Piano",
+      "category": "electric",
+      "character": "Punchy electric grand for the stage",
+      "basis": "Yamaha CP80 electric grand, 4 velocity layers",
+      "layers": [{ "pack": "keys", "program": 3 }],
+      "voicing": { "chorusSend": 0.2, "chorusDepthMs": 2.5, "chorusSpeedHz": 0.6, "chorusLevel": 1.2, "presenceDb": 1.0,
+                   "reverbSend": 0.18, "roomSize": 0.45, "damping": 0.4, "reverbLevel": 0.65, "stereoWidth": 1.1, "outputGainDb": 8.5 }
+    },
+    {
+      "id": "church_organ",
+      "name": "Church Organ",
+      "category": "electric",
+      "character": "Full principal chorus in a stone nave",
+      "basis": "Pipe organ, open diapason registration",
+      "layers": [{ "pack": "keys", "program": 4 }],
+      "voicing": { "lowShelfDb": 1.5, "reverbSend": 0.5, "roomSize": 0.95, "damping": 0.2, "reverbLevel": 0.9,
+                   "reverbWidth": 1.0, "outputGainDb": -11.5 }
+    },
+    {
+      "id": "harpsichord",
+      "name": "Harpsichord",
+      "category": "electric",
+      "character": "French double-manual, crisp baroque pluck",
+      "basis": "French harpsichord, 8' register",
+      "layers": [{ "pack": "keys", "program": 5 }],
+      "voicing": { "presenceDb": -0.5, "reverbSend": 0.28, "roomSize": 0.6, "damping": 0.4, "reverbLevel": 0.72, "outputGainDb": -3.0 }
+    },
+    {
+      "id": "ambient_piano",
+      "name": "Soft Ambient Piano",
+      "category": "electric",
+      "character": "Dreamy felt piano drifting over a warm pad",
+      "basis": "Yamaha C5 pianissimo layers + analogue warm pad",
+      "layers": [
+        { "pack": "yamaha", "program": 2, "velocityScale": 0.8 },
+        { "pack": "keys", "program": 6, "gainDb": -15.0, "velocityScale": 0.55, "velocityOffset": 20 }
+      ],
+      "voicing": { "filterCents": -1100, "highShelfDb": -2.0, "lowShelfDb": 0.5, "decayTimecents": 600, "releaseTimecents": 1200,
+                   "reverbSend": 0.62, "roomSize": 0.93, "damping": 0.3, "reverbLevel": 0.9, "reverbWidth": 1.0,
+                   "chorusSend": 0.22, "chorusDepthMs": 6.0, "chorusSpeedHz": 0.2, "chorusLevel": 1.4,
+                   "stereoWidth": 1.3, "outputGainDb": -4.0 }
+    },
+    {
+      "id": "cinematic_piano",
+      "name": "Cinematic Piano",
+      "category": "electric",
+      "character": "Wide concert grand with an octave shadow and slow strings",
+      "basis": "Steinway Model B + sub-octave + slow strings",
+      "layers": [
+        { "pack": "steinway", "program": 0 },
+        { "pack": "steinway", "program": 0, "transpose": -12, "gainDb": -15.0, "velocityScale": 0.6 },
+        { "pack": "keys", "program": 7, "gainDb": -13.0, "velocityScale": 0.7, "velocityOffset": 10 }
+      ],
+      "voicing": { "lowShelfDb": 2.0, "presenceDb": 0.5, "decayTimecents": 500, "releaseTimecents": 600, "reverbSend": 0.5,
+                   "roomSize": 0.9, "damping": 0.25, "reverbLevel": 0.85, "reverbWidth": 1.0, "stereoWidth": 1.25, "outputGainDb": -11.0 }
+    },
+    {
+      "id": "honky_tonk",
+      "name": "Honky-Tonk Piano",
+      "category": "extra",
+      "character": "Detuned saloon upright",
+      "basis": "MuseScore General",
+      "layers": [{ "pack": "musescore", "program": 3 }],
+      "voicing": { "reverbSend": 0.18, "roomSize": 0.45, "damping": 0.5, "reverbLevel": 0.65, "outputGainDb": 7.5 }
+    },
+    {
+      "id": "clavinet",
+      "name": "Clavinet",
+      "category": "extra",
+      "character": "Funky percussive string clav",
+      "basis": "MuseScore General",
+      "layers": [{ "pack": "musescore", "program": 7 }],
+      "voicing": { "reverbSend": 0.12, "roomSize": 0.35, "damping": 0.5, "reverbLevel": 0.6, "outputGainDb": 7.0 }
+    },
+    {
+      "id": "celesta",
+      "name": "Celesta",
+      "category": "extra",
+      "character": "Sparkling bell-like keyboard",
+      "basis": "MuseScore General",
+      "layers": [{ "pack": "musescore", "program": 8 }],
+      "voicing": { "reverbSend": 0.32, "roomSize": 0.75, "damping": 0.3, "reverbLevel": 0.78, "outputGainDb": -1.0 }
+    },
+    {
+      "id": "vibraphone",
+      "name": "Vibraphone",
+      "category": "extra",
+      "character": "Mellow mallets with motor vibrato",
+      "basis": "MuseScore General",
+      "layers": [{ "pack": "musescore", "program": 11 }],
+      "voicing": { "reverbSend": 0.3, "roomSize": 0.65, "damping": 0.35, "reverbLevel": 0.75, "outputGainDb": 1.0 }
+    },
+    {
+      "id": "drawbar_organ",
+      "name": "Drawbar Organ",
+      "category": "extra",
+      "character": "Classic tonewheel organ",
+      "basis": "MuseScore General",
+      "layers": [{ "pack": "musescore", "program": 16 }],
+      "voicing": { "reverbSend": 0.2, "roomSize": 0.5, "damping": 0.4, "reverbLevel": 0.7, "chorusSend": 0.15, "outputGainDb": 2.0 }
+    }
+  ]
+}
