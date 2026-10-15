@@ -195,9 +195,9 @@ JNIEXPORT jstring JNICALL Java_app_nocturne_audio_NativeEngine_nativeTranscode(
     return ok ? nullptr : env->NewStringUTF(error.c_str());
 }
 
-/** [sampleRate, framesPerBurst, bufferFrames, xruns, latencyMs, activeVoices, peak, running] */
+/** [sampleRate, framesPerBurst, bufferFrames, xruns, latencyMs, activeVoices, peak, running, peakVoicesSinceLastCall] */
 JNIEXPORT jfloatArray JNICALL Java_app_nocturne_audio_NativeEngine_nativeStats(JNIEnv *env, jobject) {
-    float s[8] = {0};
+    float s[9] = {0};
     {
         std::lock_guard<std::mutex> l(gLock);
         if (gEngine && gOutput) {
@@ -209,10 +209,11 @@ JNIEXPORT jfloatArray JNICALL Java_app_nocturne_audio_NativeEngine_nativeStats(J
             s[5] = float(gEngine->activeVoices());
             s[6] = gEngine->peakLevel();
             s[7] = gOutput->isRunning() ? 1.0f : 0.0f;
+            s[8] = float(gEngine->takePeakVoices());
         }
     }
-    jfloatArray arr = env->NewFloatArray(8);
-    env->SetFloatArrayRegion(arr, 0, 8, s);
+    jfloatArray arr = env->NewFloatArray(9);
+    env->SetFloatArrayRegion(arr, 0, 9, s);
     return arr;
 }
 

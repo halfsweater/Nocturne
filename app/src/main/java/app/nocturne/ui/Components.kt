@@ -160,14 +160,16 @@ fun PedalButton(active: Boolean, onChange: (Boolean) -> Unit, modifier: Modifier
             .semantics { contentDescription = "Sustain pedal" }
             .pointerInput(Unit) {
                 awaitEachGesture {
-                    awaitFirstDown(requireUnconsumed = false)
+                    val down = awaitFirstDown(requireUnconsumed = false)
                     val wasLatched = current
-                    val t0 = System.currentTimeMillis()
                     if (!wasLatched) change(true)
+                    var upTime = down.uptimeMillis
                     do {
                         val event = awaitPointerEvent()
+                        event.changes.firstOrNull()?.let { upTime = it.uptimeMillis }
                     } while (event.changes.any { it.pressed })
-                    val tap = System.currentTimeMillis() - t0 < 260
+                    // Uses the touch events' own timestamps, so a busy UI thread can't turn a tap into a hold.
+                    val tap = upTime - down.uptimeMillis < 260
                     when {
                         wasLatched -> change(false)          // tap on a latched pedal releases it
                         tap -> Unit                          // quick tap: stay latched

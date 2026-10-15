@@ -89,6 +89,8 @@ public:
 
     // ---- Diagnostics --------------------------------------------------------------------
     int activeVoices() const { return activeVoices_.load(std::memory_order_relaxed); }
+    /** Highest voice count rendered since the previous call (diagnostics). */
+    int takePeakVoices() { return peakVoices_.exchange(0, std::memory_order_relaxed); }
     float peakLevel() const { return peak_.load(std::memory_order_relaxed); }
 
 private:
@@ -138,6 +140,7 @@ private:
 
     std::vector<float> mixL_, mixR_, tmpL_, tmpR_;
     std::atomic<int> activeVoices_{0};
+    std::atomic<int> peakVoices_{0};
     std::atomic<float> peak_{0};
 };
 

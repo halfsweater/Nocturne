@@ -17,8 +17,9 @@ instruments that play completely offline, and a low-latency native audio engine.
 
 ## Install
 
-Download `releases/Nocturne-1.0.0.apk` (49.5 MB, Android 8.0+, arm64 / armv7 / x86_64) and open it on the phone;
+Download `releases/Nocturne-1.0.1.apk` (49.5 MB, Android 8.0+, arm64 / armv7 / x86_64) and open it on the phone;
 allow "install unknown apps" for your browser or file manager when asked. SHA-256 is in the `.sha256` file next to it.
+If you installed the earlier 1.0.0 test build, uninstall it first: 1.0.1 is signed with the production key.
 
 ## Instruments
 
@@ -133,6 +134,11 @@ the build environment):
 - three simultaneous fingers injected through the kernel touchscreen device → 3 notes sounding
   together (6 stereo voices), all released when the fingers lift
 - instrument switching via next/previous; layered instruments sound all their layers
+
+Production build 1.0.1 on an Android 16 (API 36) emulator: installs and launches, AAudio opens at
+48 kHz, a three-finger chord sounds 6 simultaneous voices (read from the in-app engine stats),
+instrument switching works. The optional pack download was run against its real server with the
+SHA-256 check passing (`PackDownloadTest`, `NOCTURNE_NETWORK_TESTS=1`).
 
 **Not yet verified on a physical Android device.** The emulator cannot judge latency or sound
 quality (it emulates the CPU in software and under-runs constantly), so real-hardware latency,

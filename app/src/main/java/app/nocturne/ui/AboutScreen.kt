@@ -35,9 +35,11 @@ fun AboutScreen(vm: PianoViewModel, onBack: () -> Unit) {
     val context = LocalContext.current
     val text = remember { context.assets.open("licenses.txt").bufferedReader().use { it.readText() } }
     var stats by remember { mutableStateOf<NativeEngine.Stats?>(null) }
+    var peakVoices by remember { mutableStateOf(0) }
     LaunchedEffect(Unit) {
         while (true) {
             stats = runCatching { NativeEngine.stats() }.getOrNull()
+            stats?.let { peakVoices = maxOf(peakVoices, it.peakVoices) }
             delay(1000)
         }
     }
@@ -54,7 +56,7 @@ fun AboutScreen(vm: PianoViewModel, onBack: () -> Unit) {
                 Text(
                     "Output ${s.sampleRate} Hz · burst ${s.framesPerBurst} frames · buffer ${s.bufferFrames} frames · " +
                         "output latency ${if (s.latencyMs >= 0) "%.1f ms".format(s.latencyMs) else "n/a"} · " +
-                        "underruns ${s.xruns} · voices ${s.activeVoices} · " +
+                        "underruns ${s.xruns} · voices ${s.activeVoices} (peak $peakVoices) · " +
                         "samples on device ${vm.packs.diskUsageBytes() / 1_000_000} MB",
                     style = MaterialTheme.typography.bodySmall, color = Nocturne.Silver,
                 )

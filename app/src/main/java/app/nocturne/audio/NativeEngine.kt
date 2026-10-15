@@ -24,6 +24,8 @@ object NativeEngine {
         val activeVoices: Int,
         val peak: Float,
         val running: Boolean,
+        /** Most voices sounding at once since the previous stats() call. */
+        val peakVoices: Int,
     )
 
     /** Order of the voicing array passed to native code (must match NativeBridge.cpp). */
@@ -102,8 +104,8 @@ object NativeEngine {
         if (loaded) nativeTranscode(null, null, inPath, outPath, listener) else "Audio engine unavailable"
 
     fun stats(): Stats {
-        val s = if (loaded) nativeStats() else FloatArray(8)
-        return Stats(s[0].toInt(), s[1].toInt(), s[2].toInt(), s[3].toInt(), s[4], s[5].toInt(), s[6], s[7] > 0f)
+        val s = if (loaded) nativeStats() else FloatArray(9)
+        return Stats(s[0].toInt(), s[1].toInt(), s[2].toInt(), s[3].toInt(), s[4], s[5].toInt(), s[6], s[7] > 0f, s[8].toInt())
     }
 
     private external fun nativeInit(): Int

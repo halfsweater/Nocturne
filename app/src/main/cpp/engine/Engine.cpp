@@ -413,6 +413,7 @@ void Engine::render(float *out, int frames) {
             blockPeak = std::max(blockPeak, std::max(std::fabs(l), std::fabs(r)));
         }
         activeVoices_.store(voices, std::memory_order_relaxed);
+        if (voices > peakVoices_.load(std::memory_order_relaxed)) peakVoices_.store(voices, std::memory_order_relaxed);
         done += n;
     }
     frameCounter_ += uint64_t(frames);
