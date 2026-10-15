@@ -19,9 +19,22 @@ jobs:
         run: sdkmanager "ndk;27.3.13750724" "cmake;3.31.6" "platforms;android-35" "build-tools;35.0.0"
       - name: Unit tests
         run: ./gradlew :app:testDebugUnitTest
-      - name: Build release APK
-        run: ./gradlew :app:assembleRelease
+      - name: Restore upload key (only when the repository has signing secrets)
+        env:
+          KEYSTORE_B64: ${{ secrets.NOCTURNE_KEYSTORE_BASE64 }}
+        if: env.KEYSTORE_B64 != ''
+        run: |
+          echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/upload.jks"
+          echo "NOCTURNE_KEYSTORE=$RUNNER_TEMP/upload.jks" >> "$GITHUB_ENV"
+      - name: Build release APK and bundle
+        env:
+          NOCTURNE_KEYSTORE_PASSWORD: ${{ secrets.NOCTURNE_KEYSTORE_PASSWORD }}
+          NOCTURNE_KEY_ALIAS: ${{ secrets.NOCTURNE_KEY_ALIAS }}
+          NOCTURNE_KEY_PASSWORD: ${{ secrets.NOCTURNE_KEY_PASSWORD }}
+        run: ./gradlew :app:assembleRelease :app:bundleRelease
       - uses: actions/upload-artifact@v4
         with:
-          name: nocturne-apk
-          path: app/build/outputs/apk/release/app-release.apk
+          name: nocturne-release
+          path: |
+            app/build/outputs/apk/release/*.apk
+            app/build/outputs/bundle/release/*.aab

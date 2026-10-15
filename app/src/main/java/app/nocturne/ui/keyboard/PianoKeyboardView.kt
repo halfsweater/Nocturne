@@ -11,6 +11,7 @@ import android.graphics.Shader
 import android.graphics.Typeface
 import android.os.SystemClock
 import android.util.SparseIntArray
+import androidx.core.util.size
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.DecelerateInterpolator
@@ -79,6 +80,17 @@ class PianoKeyboardView(context: Context) : View(context) {
     private val rect = RectF()
     private var geometry = KeyboardGeometry(1f, 1f, firstWhite, visibleWhite)
 
+    /** Rebuilds the layout maths only when size or the visible window actually changed. */
+    private fun currentGeometry(): KeyboardGeometry {
+        val g = geometry
+        if (g.width != width.toFloat() || g.height != height.toFloat() || g.firstWhite != firstWhite ||
+            g.visibleWhite != visibleWhite
+        ) {
+            geometry = KeyboardGeometry(width.toFloat(), height.toFloat(), firstWhite, visibleWhite)
+        }
+        return geometry
+    }
+
     init {
         isHapticFeedbackEnabled = false
         setLayerType(LAYER_TYPE_HARDWARE, null)
@@ -137,8 +149,7 @@ class PianoKeyboardView(context: Context) : View(context) {
     override fun onDraw(canvas: Canvas) {
         val w = width.toFloat()
         val h = height.toFloat()
-        geometry = KeyboardGeometry(w, h, firstWhite, visibleWhite)
-        val g = geometry
+        val g = currentGeometry()
         canvas.drawColor(0xFF0E0F11.toInt())
         val now = SystemClock.uptimeMillis()
         var animating = false
@@ -231,7 +242,7 @@ class PianoKeyboardView(context: Context) : View(context) {
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        geometry = KeyboardGeometry(width.toFloat(), height.toFloat(), firstWhite, visibleWhite)
+        currentGeometry()
         when (event.actionMasked) {
             MotionEvent.ACTION_DOWN, MotionEvent.ACTION_POINTER_DOWN -> {
                 if (event.actionMasked == MotionEvent.ACTION_DOWN) {
@@ -269,7 +280,7 @@ class PianoKeyboardView(context: Context) : View(context) {
     }
 
     fun releaseAll() {
-        for (k in 0 until pointerNotes.size()) {
+        for (k in 0 until pointerNotes.size) {
             val note = pointerNotes.valueAt(k)
             if (holdCount[note] > 0) {
                 holdCount[note] = 0

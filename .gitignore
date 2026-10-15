@@ -9,3 +9,7 @@ local.properties
 captures/
 __pycache__/
 /dist/
+keystore.properties
+/release-signing/
+*.jks
+!/keystore/debug.jks

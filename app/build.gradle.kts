@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -6,15 +8,15 @@ plugins {
 
 android {
     namespace = "app.nocturne"
-    compileSdk = 35
+    compileSdk = 36
     ndkVersion = "27.3.13750724"
 
     defaultConfig {
         applicationId = "app.nocturne.piano"
         minSdk = 26
-        targetSdk = 35
-        versionCode = 1
-        versionName = "1.0.0"
+        targetSdk = 36
+        versionCode = 2
+        versionName = "1.0.1"
 
         ndk {
             abiFilters += listOf("arm64-v8a", "armeabi-v7a", "x86_64")
@@ -31,14 +33,36 @@ android {
         }
     }
 
+    // Release builds are signed with a private upload key that is never committed:
+    // either keystore.properties in the project root or NOCTURNE_* environment variables (CI).
+    val releaseSigning = Properties().apply {
+        val f = rootProject.file("keystore.properties")
+        if (f.exists()) f.inputStream().use { load(it) }
+        System.getenv("NOCTURNE_KEYSTORE")?.let { setProperty("storeFile", it) }
+        System.getenv("NOCTURNE_KEYSTORE_PASSWORD")?.let { setProperty("storePassword", it) }
+        System.getenv("NOCTURNE_KEY_ALIAS")?.let { setProperty("keyAlias", it) }
+        System.getenv("NOCTURNE_KEY_PASSWORD")?.let { setProperty("keyPassword", it) }
+    }
+    val hasReleaseKey = releaseSigning.getProperty("storeFile")?.let { rootProject.file(it).exists() } == true
+
     signingConfigs {
-        // A stable, repository-local key so every build can be installed over the previous one.
-        // Replace with your own keystore before publishing to an app store.
-        create("nocturne") {
-            storeFile = rootProject.file("keystore/nocturne-release.jks")
+        getByName("debug") {
+            // Shared debug key so debug builds install over each other on any machine.
+            storeFile = rootProject.file("keystore/debug.jks")
             storePassword = "nocturne"
             keyAlias = "nocturne"
             keyPassword = "nocturne"
+        }
+        if (hasReleaseKey) {
+            create("release") {
+                storeFile = rootProject.file(releaseSigning.getProperty("storeFile"))
+                storePassword = releaseSigning.getProperty("storePassword")
+                keyAlias = releaseSigning.getProperty("keyAlias")
+                keyPassword = releaseSigning.getProperty("keyPassword")
+                enableV1Signing = true
+                enableV2Signing = true
+                enableV3Signing = true
+            }
         }
     }
 
@@ -46,11 +70,15 @@ android {
         release {
             isMinifyEnabled = true
             isShrinkResources = true
+            isDebuggable = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            signingConfig = signingConfigs.getByName("nocturne")
+            // Without a private key the release APK is produced unsigned (never with the debug key).
+            signingConfig = if (hasReleaseKey) signingConfigs.getByName("release") else null
+            ndk { debugSymbolLevel = "SYMBOL_TABLE" }
         }
         debug {
-            signingConfig = signingConfigs.getByName("nocturne")
+            signingConfig = signingConfigs.getByName("debug")
+            applicationIdSuffix = ".debug"
         }
     }
 

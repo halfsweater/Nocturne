@@ -1,6 +1,7 @@
 package app.nocturne.data
 
 import android.content.Context
+import androidx.core.content.edit
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -42,7 +43,7 @@ class Settings(context: Context) {
 
     var selectedInstrument: String
         get() = prefs.getString("instrument", "yamaha_grand")!!
-        set(value) = prefs.edit().putString("instrument", value).apply()
+        set(value) = prefs.edit { putString("instrument", value) }
 
     private fun readSound() = SoundSettings(
         volume = prefs.getFloat("volume", 0.8f),
@@ -66,24 +67,26 @@ class Settings(context: Context) {
     fun updateSound(f: (SoundSettings) -> SoundSettings) {
         val s = f(_sound.value)
         _sound.value = s
-        prefs.edit()
-            .putFloat("volume", s.volume).putFloat("brightness", s.brightness).putFloat("reverb", s.reverb)
-            .putFloat("sustain", s.sustain).putBoolean("hall", s.concertHall).putBoolean("studio", s.studio)
-            .putBoolean("soft", s.soft).apply()
+        prefs.edit {
+            putFloat("volume", s.volume); putFloat("brightness", s.brightness); putFloat("reverb", s.reverb)
+            putFloat("sustain", s.sustain); putBoolean("hall", s.concertHall); putBoolean("studio", s.studio)
+            putBoolean("soft", s.soft)
+        }
     }
 
     fun updateKeyboard(f: (KeyboardSettings) -> KeyboardSettings) {
         val k = f(_keyboard.value)
         _keyboard.value = k
-        prefs.edit()
-            .putFloat("firstWhite", k.firstWhite).putInt("visiblePortrait", k.visibleWhitePortrait)
-            .putInt("visibleLandscape", k.visibleWhiteLandscape).putInt("touch", k.touchResponse.ordinal)
-            .putInt("fixedVelocity", k.fixedVelocity).putBoolean("labels", k.showLabels).apply()
+        prefs.edit {
+            putFloat("firstWhite", k.firstWhite); putInt("visiblePortrait", k.visibleWhitePortrait)
+            putInt("visibleLandscape", k.visibleWhiteLandscape); putInt("touch", k.touchResponse.ordinal)
+            putInt("fixedVelocity", k.fixedVelocity); putBoolean("labels", k.showLabels)
+        }
     }
 
     fun toggleFavorite(id: String) {
         val next = if (id in _favorites.value) _favorites.value - id else _favorites.value + id
         _favorites.value = next
-        prefs.edit().putStringSet("favorites", next).apply()
+        prefs.edit { putStringSet("favorites", next) }
     }
 }

@@ -57,8 +57,26 @@ echo "sdk.dir=/path/to/android-sdk" > local.properties
 ./gradlew :app:testDebugUnitTest        # keyboard geometry + catalog tests
 ```
 
-The release build is signed with the repository key in `keystore/` (password `nocturne`) so
-updates install over each other. Use your own keystore before distributing publicly.
+**Signing.** Release builds are signed only with a private upload key, read from
+`keystore.properties` in the project root (git-ignored) or from the `NOCTURNE_KEYSTORE`,
+`NOCTURNE_KEYSTORE_PASSWORD`, `NOCTURNE_KEY_ALIAS` and `NOCTURNE_KEY_PASSWORD` environment
+variables. Without a key, `assembleRelease` produces an unsigned APK — it never falls back to a
+public key. `keystore.properties` looks like:
+
+```
+storeFile=release-signing/nocturne-upload.jks
+storePassword=...
+keyAlias=nocturne
+keyPassword=...
+```
+
+Debug builds (`app.nocturne.piano.debug`) use the shared `keystore/debug.jks` and install side by
+side with the release app. For CI signing, add the base64-encoded keystore as the
+`NOCTURNE_KEYSTORE_BASE64` secret plus the password/alias secrets; the workflow then uploads a
+signed APK and an `.aab` for Google Play.
+
+Keep the upload key and its password backed up: every future update must be signed with the same
+key (or, on Google Play, registered as the upload key with Play App Signing).
 
 ## Architecture
 
