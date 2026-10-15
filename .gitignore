@@ -13,3 +13,4 @@ keystore.properties
 /release-signing/
 *.jks
 !/keystore/debug.jks
+/nocturne-upload-key.zip
